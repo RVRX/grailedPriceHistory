@@ -14,15 +14,16 @@ function getUnhearted() {
 	return unhearted;
 }
 
-function clickAllElements(arrayOfElements) {
+async function clickAllElements(arrayOfElements) {
 	for (var i = arrayOfElements.length - 1; i >= 0; i--) {
 		arrayOfElements[i].click()
 		console.log("Clicked", arrayOfElements[i])
+		await new Promise(r => setTimeout(r, 3030)); //Retry-After: 3025
 	}
 }
 
 //run the functions
-setTimeout(function() {
-	clickAllElements(getUnhearted())
-  	location.reload();
-}, 30000);
+// setTimeout(function() {
+// 	clickAllElements(getUnhearted())
+//   	location.reload();
+// }, 30000);
