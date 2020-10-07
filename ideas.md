@@ -27,6 +27,15 @@ price_history : table
 |   XXX   | 35.00 |  01022020  |
 |   XXX   | 34.00 |  01192020  |
 
+
+####_Option X.1_
+Meta-data table
+
+|  ID  | current_name | first_found | last_found | original_price |
+|------|--------------|-------------|------------|----------------|
+| XXXX |    "Name"    |   mmddyyyy  |  mmddyyyy  |      00.00     |
+
+
 ## WebServer
 ### What it be
 Idea is to have a like meta-Grailed page, when you click on the listing it should take you to a page listing the price history. Maybe make the directory look just like normal Grailed. If the DB gets big, might not be a good idea to just list all of the items, will need some sort of search? Maybe ONLY have a search, and you just put in the item id/URL (will be parsed to id, if possible).
@@ -42,3 +51,24 @@ Use RPI for DB, use black.host web-server. Easiest way would probably be using a
 Update: after some research it seems like Python is the best way to proceed. I think I can use cPanel's 'Cron Jobs' to run the web scraper every so often.
 OR
 It looks like I can set up a python application through "Setup Python App" on cPanel, which I'm guessing will allow me to run a script that just loops through the scraper every so often.
+
+## Pseudo-Implementation (Kappa Specific)
+
+visit "https://www.grailed.com/shop/_2L7OmxvvQ" (URL for Kappa, unsure how it hashes/decides on the specific URL)
+
+within `<div class="feed"></div>` look for every `<div class="feed-item"></div>`.
+
+for each `class="feed-item"`:
+* Get Price
+	* Prices look different depending on whether or not there is a sale/discount
+	* Navigate to `<div class="listing-price-and-heart">` -> `<div class="listing-price">` -> `<p class="sub-title origional-price">` -> `<span>` -> PRICE IS HERE.
+	* Navigate to `<div class="listing-price-and-heart">` -> `<div class="listing-price">` -> `<p class="sub-title new-price">` -> `<span>` -> PRICE IS HERE.
+	* Boils down to: `<div class="listing-price">` **first** element (`<p>`), Innermost content/text.
+* Get ID
+	* EX: `<a class="listing-item-link" href="/listings/17210964-kappa-kappa-big-logo-trench-coat-breathable-waterproof-jacket" rel="noopener noreferrer" target="_blank">` ID is 17210964. So:
+	* `<a class="listing-item-link" href="/listings/{ID}-{IGNORE}">` (so content AFTER "/listings/", and BEFORE "-").
+* 
+	If ID exists in table / Table for ID exists: 
+		Go to ID and add new price and crawl date
+	If ID does not exist in table / Table for ID does not exist:
+		Create ID Table / Col
