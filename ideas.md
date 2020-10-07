@@ -34,3 +34,11 @@ A Browser extension for price history (or tamperMonkey script)? Will only work o
 
 ### What it do
 Pulls from DB server on page load? Twig/Slim templates? Make an API?
+
+
+## Hosting
+Use RPI for DB, use black.host web-server. Easiest way would probably be using a .SQLite file that I can easily copy back and forth between servers. Can PHP or any other web technology wget files? Maybe the whole thing could be on webserver if I can webscrape with PHP? would be weird IIRC you can asynchronously run PHP, I'd have to visit the web page every so-often in order to run the scraper? You cant realistically have this happen when someone visits the page because it would take forever to load.
+
+Update: after some research it seems like Python is the best way to proceed. I think I can use cPanel's 'Cron Jobs' to run the web scraper every so often.
+OR
+It looks like I can set up a python application through "Setup Python App" on cPanel, which I'm guessing will allow me to run a script that just loops through the scraper every so often.
