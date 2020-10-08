@@ -1,4 +1,5 @@
 # Analysis of Grailed's Algolia API
+Mainly using the XHR filter in Firefox's Network Monitor to get this data.
 
 ## A Specific Search
 
@@ -79,6 +80,7 @@ Questions
 * How to make a new HTTP POST/GET in Firefox (I've just been using "Edit and Resend")
 * What Language do I want to work this in now? I'm no longer really "Web-scraping" so Python might not be the answer. I am working with JSON responses, so JS might be the better approach?
 * More generic research on Algolia, see if I can't find anything interesting/useful
+* Does this work outside of a browser context? I'm doing some searching and it looks like some sites might be using cookies and tokens (also said headers, but i've got that covered) to secure a request.
 
 # Pseudo-Scraping of the API
 
