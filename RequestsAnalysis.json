@@ -1,0 +1,39 @@
+{"requests":
+	[
+		{
+			"indexName":"Listing_production","params":"highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&hitsPerPage=40&filters=&page=1&maxValuesPerFacet=100&query=kappa&facets=%5B%22category_size%22%2C%22category_path%22%2C%22designers.name%22%2C%22price_i%22%2C%22condition%22%2C%22location%22%2C%22badges%22%2C%22strata%22%5D&tagFilters=&facetFilters=%5B%5B%22strata%3Abasic%22%2C%22strata%3Agrailed%22%2C%22strata%3Ahype%22%2C%22strata%3Asartorial%22%5D%5D&numericFilters=%5B%22price_i%3E%3D0%22%2C%22price_i%3C%3D99999%22%5D"
+		},
+		{
+			"indexName":"Listing_production","params":"highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&hitsPerPage=1&filters=&page=0&maxValuesPerFacet=100&query=kappa&attributesToRetrieve=%5B%5D&attributesToHighlight=%5B%5D&attributesToSnippet=%5B%5D&tagFilters=&analytics=false&clickAnalytics=false&facets=strata&numericFilters=%5B%22price_i%3E%3D0%22%2C%22price_i%3C%3D99999%22%5D"
+		},
+		{
+			"indexName":"Listing_production","params":"highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&hitsPerPage=1&filters=&page=0&maxValuesPerFacet=100&query=kappa&attributesToRetrieve=%5B%5D&attributesToHighlight=%5B%5D&attributesToSnippet=%5B%5D&tagFilters=&analytics=false&clickAnalytics=false&facets=price_i&facetFilters=%5B%5B%22strata%3Abasic%22%2C%22strata%3Agrailed%22%2C%22strata%3Ahype%22%2C%22strata%3Asartorial%22%5D%5D"
+		}
+		// {"indexName":"Listing_sold_production","params":"highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&hitsPerPage=40&filters=&page=1&maxValuesPerFacet=100&query=kappa&facets=%5B%22category_size%22%2C%22category_path%22%2C%22designers.name%22%2C%22price_i%22%2C%22condition%22%2C%22location%22%2C%22badges%22%2C%22strata%22%5D&tagFilters=&facetFilters=%5B%5B%22strata%3Abasic%22%2C%22strata%3Agrailed%22%2C%22strata%3Ahype%22%2C%22strata%3Asartorial%22%5D%5D&numericFilters=%5B%22price_i%3E%3D0%22%2C%22price_i%3C%3D99999%22%5D"},
+		// {"indexName":"Listing_sold_production","params":"highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&hitsPerPage=1&filters=&page=0&maxValuesPerFacet=100&query=kappa&attributesToRetrieve=%5B%5D&attributesToHighlight=%5B%5D&attributesToSnippet=%5B%5D&tagFilters=&analytics=false&clickAnalytics=false&facets=strata&numericFilters=%5B%22price_i%3E%3D0%22%2C%22price_i%3C%3D99999%22%5D"},
+		// {"indexName":"Listing_sold_production","params":"highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&hitsPerPage=1&filters=&page=0&maxValuesPerFacet=100&query=kappa&attributesToRetrieve=%5B%5D&attributesToHighlight=%5B%5D&attributesToSnippet=%5B%5D&tagFilters=&analytics=false&clickAnalytics=false&facets=price_i&facetFilters=%5B%5B%22strata%3Abasic%22%2C%22strata%3Agrailed%22%2C%22strata%3Ahype%22%2C%22strata%3Asartorial%22%5D%5D"}
+	]
+}
+
+// NEW REQUEST (Shortend of above)
+
+{"requests":[{"indexName":"Listing_production","params":"highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&hitsPerPage=40&filters=&page=1&maxValuesPerFacet=100&query=kappa&facets=%5B%22category_size%22%2C%22category_path%22%2C%22designers.name%22%2C%22price_i%22%2C%22condition%22%2C%22location%22%2C%22badges%22%2C%22strata%22%5D&tagFilters=&facetFilters=%5B%5B%22strata%3Abasic%22%2C%22strata%3Agrailed%22%2C%22strata%3Ahype%22%2C%22strata%3Asartorial%22%5D%5D&numericFilters=%5B%22price_i%3E%3D0%22%2C%22price_i%3C%3D99999%22%5D"}]}
+// The above ^ request decoded:
+//{"requests":[{"indexName":"Listing_production","params":"highlightPreTag=<ais-highlight-0000000000>&highlightPostTag=</ais-highlight-0000000000>&hitsPerPage=40&filters=&page=1&maxValuesPerFacet=100&query=kappa&facets=["category_size","category_path","designers.name","price_i","condition","location","badges","strata"]&tagFilters=&facetFilters=[["strata:basic","strata:grailed","strata:hype","strata:sartorial"]]&numericFilters=["price_i>=0","price_i<=99999"]"}]}
+
+
+// NEW Request (Searching for FTP)
+{"requests":[{"indexName":"Listing_production","params":"highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&hitsPerPage=40&filters=&page=1&maxValuesPerFacet=100&query=FTP&facets=%5B%22category_size%22%2C%22category_path%22%2C%22designers.name%22%2C%22price_i%22%2C%22condition%22%2C%22location%22%2C%22badges%22%2C%22strata%22%5D&tagFilters=&facetFilters=%5B%5B%22strata%3Abasic%22%2C%22strata%3Agrailed%22%2C%22strata%3Ahype%22%2C%22strata%3Asartorial%22%5D%5D&numericFilters=%5B%22price_i%3E%3D0%22%2C%22price_i%3C%3D99999%22%5D"}]}
+
+//NEW Request (Stripped Down, what info is necessary?)
+{"requests":[{"indexName":"Listing_production","params":"highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&hitsPerPage=40&filters=&page=1&maxValuesPerFacet=100&query=FTP"}]}
+// ^ it looks like this worked out fine.
+
+//NEW Request (I want to get more hits, look at that "hitsPerPage" is a value, lets crank it up hpp=90)
+{"requests":[{"indexName":"Listing_production","params":"highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&hitsPerPage=90&filters=&page=1&maxValuesPerFacet=100&query=FTP"}]}
+//^ yup, 0-89 hits received.
+
+
+	// I think im understanding the request body enough at this point
+	// should start looking at the other parts of the request
+	// and see what they do, and how to manipulate them
