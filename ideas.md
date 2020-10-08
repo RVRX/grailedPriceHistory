@@ -74,5 +74,5 @@ for each `class="feed-item"`:
 		Create ID Table / Col
 
 
-#Updates
+# Updates
 Base scrapy won't work on grailed. Scrapy just sorta wgets the site, so its not able to work on dynamic content (Grailed is ReactJS). Looks like I can use the Selenium package - seems to be some sort of headless browser api, along with https://github.com/clemfromspace/scrapy-selenium, to try and get things working. Left off with things not working, think it might be becuase of missing dependencies on the WSL or the like
