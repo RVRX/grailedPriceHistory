@@ -1,7 +1,18 @@
 //todo the python script could be used here to grab search queries.
+//prevent form submission (https://stackoverflow.com/questions/19454310/stop-form-refreshing-page-on-submit)
+// $("#search-form").submit(function(e) {
+//     e.preventDefault();
+// });
+var form = document.getElementById("search-form");
+function handleForm(event) { event.preventDefault(); }
+form.addEventListener('submit', handleForm);
+
 
 // Gets Grailed JSON from an ID or URL
-function JSONFromInput(input) {
+function JSONFromInput() {
+    console.log("Starting search")
+    let input = document.getElementById("search-query").value.toString();
+    console.log("input: "+input);
     //parse URL from ID
     //    Example URL: https://www.grailed.com/listings/15582671-kappa-x-vintage-need-gone-vintage-kappa-sidetape-light-jacket
     //    Example ID: 15582671
@@ -69,9 +80,29 @@ function fetchJSONCallback(data) {
 }
 
 function fillData() {
-    document.getElementById("price-current").innerText = returnedJSON["price"];
-    document.getElementById("price-history").innerHTML = returnedJSON["price_drops"];
+    //Data for
     document.getElementById("listing-title").innerHTML = returnedJSON["title"];
+
+    //Get date and format
+    let dateUpdated = new Date(returnedJSON["price_updated_at"]);
+    console.log("Date Updated:\n",dateUpdated);
+    let [month, date, year] = (dateUpdated).toLocaleDateString().split("/")
+
+    //Create price history table
+    let priceHistory = returnedJSON["price_drops"]; //array of prices
+        //Empty the table
+    document.getElementById("listing-info-table-body").innerHTML = "";
+        //For each priceHistory item add a row
+    for (let i = 0; i < priceHistory.length-1; i++) {
+        document.getElementById("listing-info-table-body").innerHTML = document.getElementById("listing-info-table-body").innerHTML + "<tr><td>" + priceHistory[i] + "</td><td>--</td></tr>";
+
+    }
+    //adding most current info
+    document.getElementById("listing-info-table-body").innerHTML = document.getElementById("listing-info-table-body").innerHTML + "<tr><td>" + returnedJSON['price'] + "</td><td>" + month+"/"+date+"/"+year + "</td></tr>";
+
+    // document.getElementById("price-history").innerHTML = returnedJSON["price_drops"];
+
+
    /*TODO
    * Created at, show users when this listing was first posted
    * "fee", what is this??

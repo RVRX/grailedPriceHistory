@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title</title>
+    <title>Grailed Price Checker</title>
     <!--Stylesheets-->
         <!--mainStyle.css-->
     <link rel="stylesheet" href="mainStyle.css">
@@ -13,10 +13,38 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
+<div class="container-fluid">
 
-<span id="price-current"></span>
-<span id="price-history"></span>
-<span id="listing-title"></span>
+    <div id="header">
+        <h1 >Grailed Price History Checker</h1>
+    </div>
+
+    <form id="search-form">
+        <div class="mb-3">
+            <label for="search-query" class="form-label"><!--Check History:--></label>
+            <input type="text" class="form-control" id="search-query" placeholder="URL or listing ID" onsubmit="JSONFromInput()">
+        </div>
+        <button type="button" class="btn btn-primary" onclick="JSONFromInput()">Submit</button>
+    </form>
+
+    <span id="listing-title"></span>
+
+    <table class="table" id="listing-info-table">
+        <thead>
+        <tr>
+            <th scope="col">Price</th>
+            <th scope="col">Date</th>
+        </tr>
+        </thead>
+        <tbody id="listing-info-table-body">
+<!--        <tr>-->
+<!--            <td id="current-price"></td>-->
+<!--            <td id="date-updated"></td>-->
+<!--        </tr>-->
+        </tbody>
+    </table>
+</div>
+<!--todo https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern-->
 
 </body>
 <!--Scripts-->
