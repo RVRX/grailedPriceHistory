@@ -1,15 +1,17 @@
 //todo the python script could be used here to grab search queries.
 
-// Gets JSON from an ID or URL
+// Gets Grailed JSON from an ID or URL
 function JSONFromInput(input) {
     //parse URL from ID
     //    Example URL: https://www.grailed.com/listings/15582671-kappa-x-vintage-need-gone-vintage-kappa-sidetape-light-jacket
     //    Example ID: 15582671
     if (parseToID(input) !== 0) {
         let listingID = parseToID(input)
+
+        // get JSON from id
+        return JSONFromListingNumber(listingID); //todo parse this JSON down a level - to "responseText" - before returning.
     } else return alert("Failed, Invalid URL or ID.")
 
-//    get JSON from id
 
 }
 
@@ -55,31 +57,6 @@ function isValidURL(url) {
 
 function JSONFromListingNumber(listing) {
     let retrievedJSON = $.getJSON("https://cors-anywhere.herokuapp.com/https://www.grailed.com/api/listings/"+listing)
-        // let items = [];
-        // $.each( data, function( key, val ) {
-        //     items.push( "<li id='" + key + "'>" + val + "</li>" );
-        // });
-        //
-        // $( "<ul/>", {
-        //     "class": "my-new-list",
-        //     html: items.join( "" )
-        // }).appendTo( "body" );
-    // });
-
     console.log(retrievedJSON);
-
-
-
+    return retrievedJSON;
 }
-
-// $.getJSON( "ajax/test.json", function( data ) {
-//     var items = [];
-//     $.each( data, function( key, val ) {
-//         items.push( "<li id='" + key + "'>" + val + "</li>" );
-//     });
-//
-//     $( "<ul/>", {
-//         "class": "my-new-list",
-//         html: items.join( "" )
-//     }).appendTo( "body" );
-// });
