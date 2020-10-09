@@ -53,18 +53,18 @@ function isValidURL(url) {
     return url.includes("grailed.com/listing");
 }
 
-function JSONFromListingNumber(listing) { //todo cross-site scripting stops this from working. I will need a backend to fetch the API myself, and bring it back up front to JS.
-    let retrievedJSON = $.getJSON("https://www.grailed.com/api/listings/"+listing,function ( data ) {
-        let items = [];
-        $.each( data, function( key, val ) {
-            items.push( "<li id='" + key + "'>" + val + "</li>" );
-        });
-
-        $( "<ul/>", {
-            "class": "my-new-list",
-            html: items.join( "" )
-        }).appendTo( "body" );
-    });
+function JSONFromListingNumber(listing) {
+    let retrievedJSON = $.getJSON("https://cors-anywhere.herokuapp.com/https://www.grailed.com/api/listings/"+listing)
+        // let items = [];
+        // $.each( data, function( key, val ) {
+        //     items.push( "<li id='" + key + "'>" + val + "</li>" );
+        // });
+        //
+        // $( "<ul/>", {
+        //     "class": "my-new-list",
+        //     html: items.join( "" )
+        // }).appendTo( "body" );
+    // });
 
     console.log(retrievedJSON);
 
