@@ -53,7 +53,7 @@ function isValidURL(url) {
     return url.includes("grailed.com/listing");
 }
 
-function JSONFromListingNumber(listing) {
+function JSONFromListingNumber(listing) { //todo cross-site scripting stops this from working. I will need a backend to fetch the API myself, and bring it back up front to JS.
     let retrievedJSON = $.getJSON("https://www.grailed.com/api/listings/"+listing,function ( data ) {
         let items = [];
         $.each( data, function( key, val ) {
