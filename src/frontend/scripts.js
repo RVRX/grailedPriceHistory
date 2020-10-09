@@ -18,8 +18,25 @@ function parseToID(input) {
     if (isValidID(input)) {
         return input;
     } else if (isValidURL(input)) {
+        for (let i = 0; i < input.length; i++) { //i=1, to skip potential trailing backslashes
+            // if (/^\d+$/.test(input.charAt(input.length-i))) {
+            if (/^\/+$/.test(input.charAt(input.length-(i+2)))) { //input.length-(i+2), to go from back to front, and skip last item
+                console.log("There is a slash at pos "+i);
+                let lastSlash = input.length-(i+1);
+                console.log("last slash is at "+lastSlash);
+                for (let j = lastSlash; j < input.length; j++) { //from the lastSlash to end, look for '-', remove dash and everything after it.
+                    if (/^-+$/.test(input.charAt(j))) {
+                        let firstDash = j;
+                        console.log("First dash is at "+firstDash);
+                        console.log(input.slice(lastSlash,firstDash));
+                        return input.slice(lastSlash,firstDash);
+                    }
+                }
+            }
+        }
         //parse URL into id
-        return input.replace(/\D/g,'')
+        return input.replace(/\D/g,''); //keeping regex here in-case there are no dashes
+        // return input
     } else {
         console.log("This is not a valid URL or ID! " + input)
         return 0;//TODO throw an exception?
@@ -32,7 +49,8 @@ function isValidID(id) {
 }
 
 function isValidURL(url) {
-    return url.contains("grailed.com/listing");
+    // console.log(url.contains("grailed.com.listing"))
+    return url.includes("grailed.com/listing");
 }
 
 function JSONFromListingNumber(listing) {
