@@ -7,17 +7,9 @@ function JSONFromInput(input) {
     //    Example ID: 15582671
     if (parseToID(input) !== 0) {
         let listingID = parseToID(input)
-
-        // get JSON from id
-        // return fetchJSON(listingID); //todo parse this JSON down a level - to "responseText" - before returning.
-        fetchJSON(listingID); //todo set up this function to take over from here
-        // return returnedJSON
-        // return returnedJSON["data"]["price_drops"]
-        // return returnedJSON;
-        // return JSONFromListingNumber(listingID)["responseJSON"];
+        //takes over fetch and propagation
+        fetchJSON(listingID);
     } else return alert("Failed, Invalid URL or ID.")
-
-
 }
 
 //Parses the into to an ID, returns 0 if invalid.
@@ -50,11 +42,13 @@ function parseToID(input) {
     }
 }
 
+//checks if arg only contains [0-9]
 function isValidID(id) {
     //regex for [0-9]
     return /^\d+$/.test(id);
 }
 
+//checks if arg contains "grailed.com/listing"
 function isValidURL(url) {
     // console.log(url.contains("grailed.com.listing"))
     return url.includes("grailed.com/listing");
@@ -69,15 +63,12 @@ function fetchJSON(listing) {
 //does the dirty work
 function fetchJSONCallback(data) {
     console.log(data);
-    // console.log("DATA: "+ JSON.stringify(data));
     returnedJSON = data["data"];
-    let listingPriceDrops = returnedJSON["price_drops"];
-    let listingCurrentPrice = returnedJSON["price"];
-    let listingName = returnedJSON["title"]
-    fillData(listingCurrentPrice,listingPriceDrops,listingName);
+    //propagation of HTML page
+    fillData();
 }
 
-function fillData(currentPrice, priceHistory, name) {
+function fillData() {
     document.getElementById("price-current").innerText = returnedJSON["price"];
     document.getElementById("price-history").innerHTML = returnedJSON["price_drops"];
     document.getElementById("listing-title").innerHTML = returnedJSON["title"];
@@ -87,58 +78,4 @@ function fillData(currentPrice, priceHistory, name) {
    * "shipping:us:amount", show shipping amount by country
    * "price_updated_at", last time the price was updated
    * */
-}
-
-function testFcn() { //todo im thinking the issue is that im trying to parse an already parsed JSON?
-    let kount = JSONFromInput("https://www.grailed.com/listings/15582671-kappa-x-vintage-need-gone-vintage-kappa-sidetape-light-jacket");
-    // const obj = JSON.parse(kount);
-    // console.log(obj.responseJSON);
-    // return kount["Object"];
-    //todo why does this all work fine the the browser but won't work here?
-    let temp1 = JSONFromInput("https://www.grailed.com/listings/15582671-kappa-x-vintage-need-gone-vintage-kappa-sidetape-light-jacket");
-    let temp2 = temp1["responseJSON"]["data"]["price_drops"];
-    // let temp3 = JSON.parse(temp2);
-    // return JSON.parse(kountTwo);
-    // return temp1;
-    return temp2;
-    // return temp
-    console.log("kount is:\n"+kount);
-    let kountTwo = JSON.stringify(kount);
-    console.log("kountTwo is: \n"+ kountTwo);
-    console.log("Parsed kountTwo is: \n"+JSON.parse(kountTwo));
-    // return kountTwo
-// let xyz = retrievedJSON["responseJSON"]["data"]["price_drops"];
-
-}
-function test() {
-    let retrievedJSON = $.getJSON("https://cors-anywhere.herokuapp.com/https://www.grailed.com/api/listings/15582671")
-    // return retrievedJSON["responseJSON"]["data"]["price_drops"];
-    // return JSON.stringify(retrievedJSON);
-    // return JSON.stringify(retrievedJSON);
-// return parsedStringifyJSON;
-    return retrievedJSON;
-
-}
-function testTwo() {
-    let retrievedJSON = $.getJSON("https://cors-anywhere.herokuapp.com/https://www.grailed.com/api/listings/15582671");
-    let stringifyJSON = JSON.stringify(retrievedJSON);
-    let parsedStringifyJSON = JSON.parse(stringifyJSON)
-//deefining for later use in fetchJSON callback fcn.
-    return stringifyJSON;
-
-}
-function testThree() {
-    $.getJSON("https://cors-anywhere.herokuapp.com/https://www.grailed.com/api/listings/15582671", function(test) {
-        returnedJSON = test;
-        console.log(JSON.stringify(test));
-        return returnedJSON;
-    });
-}
-function fetchJSONTEST() {
-    $.getJSON("https://cors-anywhere.herokuapp.com/https://www.grailed.com/api/listings/15582671", callbackFuncWithData);
-}
-function callbackFuncWithData(data)
-{
-    console.log(data)
-    returnedJSON = data;
 }
