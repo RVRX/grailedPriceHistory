@@ -75,12 +75,23 @@ x-algolia-api-key: a3a4de2e05d9e9b463911705fb6323ad
 ```
 On second try, you don't need any of the `public_*` stuff, I carried this over from some of my previous failed Python attempts with Scrapy/{forget the name...}.
 
+## Getting Specific Items
+After all this time, who'd a thunk. Grailed has their products on their in-house API as well:
+```https://www.grailed.com/api/listings/{ID}```
+Now I'm starting to question this project... I no longer need any of this Algolia API stuff - that's only useful if I want to scrape new listings as they come in, which I'm not sure exactly what I would do that for.
+
+I can use the Grailed API to let users watch items and see if the price goes up.
+
+
 ## Notes
 Questions
 * How to make a new HTTP POST/GET in Firefox (I've just been using "Edit and Resend")
 * What Language do I want to work this in now? I'm no longer really "Web-scraping" so Python might not be the answer. I am working with JSON responses, so JS might be the better approach?
 * More generic research on Algolia, see if I can't find anything interesting/useful
 * Does this work outside of a browser context? I'm doing some searching and it looks like some sites might be using cookies and tokens (also said headers, but i've got that covered) to secure a request.
+* If I get items 0-49, how do I get items 50-99?
+* GETTING SPECIFIC ITEMS BY ID, as the API seems to show price history for some items
+	* ANSWER! https://www.grailed.com/api/listings/15582671s
 
 # Pseudo-Scraping of the API
 

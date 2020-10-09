@@ -21,6 +21,10 @@ def get_json_by_query_unix(query, hits):
   --compressed").read()
     return result
 
+#Gets the JSON info for a specific ID
+def get_json_by_id(identification_number):
+    # will return to later, leaving to do work on newfound grailed.com API
+    return identification_number
 
 # main
 if __name__ == '__main__':
@@ -43,3 +47,7 @@ if __name__ == '__main__':
         json.dump(responseToSave, outfile)
         print("JSON data saved to json_export.json")
         outfile.close()
+
+    # Loop through all elements of the list, get
+    for i in responseToSave:
+        print(str(i['id']) + " <- ID     |       Price -> " + str(i["price"]))

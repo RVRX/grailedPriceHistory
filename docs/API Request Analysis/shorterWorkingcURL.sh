@@ -1,0 +1,12 @@
+curl 'https://mnrwefss2q-dsn.algolia.net/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20JavaScript%20(3.35.1)%3B%20Browser%3B%20react%20(16.13.1)%3B%20react-instantsearch%20(6.6.0)%3B%20JS%20Helper%20(3.1.2)&x-algolia-application-id=MNRWEFSS2Q&x-algolia-api-key=a3a4de2e05d9e9b463911705fb6323ad' \
+  -H 'Connection: keep-alive' \
+  -H 'accept: application/json' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36' \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -H 'Origin: https://www.grailed.com' \
+  -H 'Sec-Fetch-Site: cross-site' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Accept-Language: en-US,en;q=0.9' \
+  --data-raw '{"requests":[{"indexName":"Listing_production","params":"highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&hitsPerPage=90&filters=&page=1&maxValuesPerFacet=100&query=FTP"}]}' \
+  --compressed | python3 -msjson.tool > out.json
