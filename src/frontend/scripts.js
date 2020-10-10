@@ -102,6 +102,7 @@ function fillData() {
 
     // document.getElementById("price-history").innerHTML = returnedJSON["price_drops"];
 
+    initializeCharts(priceHistory);
 
    /*TODO
    * Created at, show users when this listing was first posted
@@ -109,4 +110,46 @@ function fillData() {
    * "shipping:us:amount", show shipping amount by country
    * "price_updated_at", last time the price was updated
    * */
+}
+
+function initializeCharts(inputDataPoints) {
+    console.log("inputDataPoints: ", inputDataPoints);
+    var x1 = []; //make 1-n, where n is array.length
+    for (let i = 0; i < inputDataPoints.length; i++) {
+        x1.push(i+1);
+        console.log("array is:",x1);
+    }
+    var y1 = inputDataPoints;
+    var dataPoints = [];
+
+    for (var i = 0; i < x1.length; i++) {
+        dataPoints.push({
+            x: x1[i],
+            y: y1[i]
+        });
+    }
+
+
+    console.log("Final Input for Graph is:",x1,y1);
+
+    var chart = new CanvasJS.Chart("chartContainer", {
+        title: {
+            // text: " Populating chart using array "
+        },
+        axisY: {
+            title: "Price ($)",
+        },
+        axisX: {
+            title: "",
+            interval: 1,
+            labelFontSize: 0,
+            tickThickness: 0,
+        },
+        data: [{
+            type: "line",
+            dataPoints: dataPoints
+        }]
+    });
+
+    chart.render();
 }
