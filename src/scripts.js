@@ -216,7 +216,7 @@ function fillShippingInfo() {
 
 function fillSellerInfo() {
     let sellerInfo = returnedJSON["seller"];
-    document.getElementById("section-seller-info").innerHTML = "SAMPLE SELLER INFO";
+    document.getElementById("section-seller-info").innerHTML = JSON.stringify(sellerInfo);
 }
 
 function initializeCharts(inputDataPoints) {
