@@ -1,3 +1,29 @@
-#header {
+#heading {
     text-align: center;
+}
+
+#search-form {
+    /*max-width: 750px;*/
+    /*text-align: center;*/
+    /*align-content: center;*/
+    /*position: relative;*/
+    margin: 0 auto;
+    /*padding-top: 6px;*/
+    /*width: 484px;*/
+    /*width: 30%;*/
+    /*max-width: 484px;*/
+    /*left: 50%;*/
+    /*right: 50%;*/
+}
+
+#searchBox-col {
+    /*width: 100%;*/
+}
+
+#submit-col {
+    width: auto !important;
+}
+
+#status-box {
+
 }

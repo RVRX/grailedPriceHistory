@@ -4,13 +4,44 @@
 //     e.preventDefault();
 // });
 var form = document.getElementById("search-form");
-function handleForm(event) { event.preventDefault(); }
+function handleForm(event) { event.preventDefault(); clearPreviousResult(); JSONFromInput(); }
 form.addEventListener('submit', handleForm);
 
+// $("input").keypress(function(event) {
+//     if (event.which == 13) {
+//         event.preventDefault();
+//         $("form").submit();
+//     }
+// });
+
+// $('#search-form input').keydown(function(e) {
+//     if (e.keyCode == 13) {
+//         $('#search-form').submit();
+//     }
+// });
+
+function clearPreviousResult() {
+    // if (document.getElementById("auto-content"))
+    document.getElementById("auto-content").innerHTML = "<span id=\"statuses\" class=\"justify-content-center\"></span>\n" +
+        "\n" +
+        "        <span id=\"listing-title\"></span>\n" +
+        "\n" +
+        "        <table class=\"table\" id=\"listing-info-table\">\n" +
+        "            <thead id=\"listing-info-table-head\">\n" +
+        "            <!--Will be propagated by fillData()-->\n" +
+        "            </thead>\n" +
+        "            <tbody id=\"listing-info-table-body\">\n" +
+        "            <!--Will be propagated by fillData()-->\n" +
+        "            </tbody>\n" +
+        "        </table>\n" +
+        "\n" +
+        "        <div id=\"chartContainer\" style=\"height: 100%; width: 100%;\"></div>";
+}
 
 // Gets Grailed JSON from an ID or URL
 function JSONFromInput() {
     console.log("Starting search")
+    setStatus("alert-primary","Starting Search...")
     let input = document.getElementById("search-query").value.toString();
     console.log("input: "+input);
     //parse URL from ID
@@ -20,7 +51,11 @@ function JSONFromInput() {
         let listingID = parseToID(input)
         //takes over fetch and propagation
         fetchJSON(listingID);
-    } else return alert("Failed, Invalid URL or ID.")
+    } else {
+        //set status
+        setStatus("alert-danger","Failed! Invalid URL or ID.");
+        // return alert("Failed, Invalid URL or ID.")
+    }
 }
 
 //Parses the into to an ID, returns 0 if invalid.
@@ -67,19 +102,39 @@ function isValidURL(url) {
 
 let returnedJSON = null;
 function fetchJSON(listing) {
+    setStatus("alert-secondary", "Fetching Data...")
     // listing = parseToID(listing);
     $.getJSON("https://cors-anywhere.herokuapp.com/https://www.grailed.com/api/listings/"+listing, fetchJSONCallback);
+    // var req = $.ajax({
+    //     url : "https://cors-anywhere.herokuapp.com/https://www.grailed.com/api/listings/"+listing,
+    //     dataType : "jsonp",
+    //     timeout : 10000
+    // });
+    //
+    // req.success(fetchJSONCallback());
+    //
+    // req.error(function() {
+    //     console.log('Fetch JSON failed!');
+    //     setStatus("alert-danger","Data Fetch Failed! error on:"+listing+". error code: JSONTimeoutA");
+    // });
 }
 
 //does the dirty work
 function fetchJSONCallback(data) {
     console.log(data);
+
+    //add success status
+    setStatus("alert-success", "Request Approved!");
+
     returnedJSON = data["data"];
     //propagation of HTML page
     fillData();
 }
 
 function fillData() {
+    //Animate incoming content
+    document.getElementById("auto-content").classList.add("aos-init");
+
     //Data for
     document.getElementById("listing-title").innerHTML = returnedJSON["title"];
 
@@ -90,8 +145,13 @@ function fillData() {
 
     //Create price history table
     let priceHistory = returnedJSON["price_drops"]; //array of prices
-        //Empty the table
+        //Empty the table body
     document.getElementById("listing-info-table-body").innerHTML = "";
+        //Create table headers
+    document.getElementById("listing-info-table-head").innerHTML = "<tr>\n" +
+        "            <th scope=\"col\">Price</th>\n" +
+        "            <th scope=\"col\">Date</th>\n" +
+        "        </tr>"
         //For each priceHistory item add a row
     for (let i = 0; i < priceHistory.length-1; i++) {
         document.getElementById("listing-info-table-body").innerHTML = document.getElementById("listing-info-table-body").innerHTML + "<tr><td>" + priceHistory[i] + "</td><td>--</td></tr>";
@@ -152,4 +212,10 @@ function initializeCharts(inputDataPoints) {
     });
 
     chart.render();
+}
+
+function setStatus(type, text) {
+    document.getElementById("statuses").innerHTML = "<div id=\"status-box\" class=\"alert "+type+" mt-3 col-11\" role=\"alert\">\n" +
+        text +
+        "</div>"
 }

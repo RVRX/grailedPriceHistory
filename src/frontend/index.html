@@ -18,39 +18,40 @@
 <body>
 <div class="container-fluid">
 
-    <div id="header">
-        <h1 >Grailed Price History Checker</h1>
+    <div id="static-content">
+
+        <div id="heading">
+            <h1 >Grailed Price History Checker</h1>
+        </div>
+
+        <form class="row row-cols-lg g-3 justify-content-center" id="search-form">
+            <div class="col-11" id="searchBox-col">
+                <label class="visually-hidden" for="search-query">Check History</label>
+                <input type="text" class="form-control" id="search-query" placeholder="URL or listing ID" onsubmit="JSONFromInput()">
+            </div>
+        </form>
+
     </div>
 
-    <form id="search-form">
-        <div class="mb-3">
-            <label for="search-query" class="form-label"><!--Check History:--></label>
-            <input type="text" class="form-control" id="search-query" placeholder="URL or listing ID" onsubmit="JSONFromInput()">
-        </div>
-        <button type="button" class="btn btn-primary" onclick="JSONFromInput()">Submit</button>
-    </form>
+    <div id="auto-content" data-aos="fade-up">
 
-    <span id="listing-title"></span>
+        <span id="statuses" class="justify-content-center"></span>
 
-    <table class="table" id="listing-info-table">
-        <thead>
-        <tr>
-            <th scope="col">Price</th>
-            <th scope="col">Date</th>
-        </tr>
-        </thead>
-        <tbody id="listing-info-table-body">
-<!--        <tr>-->
-<!--            <td id="current-price"></td>-->
-<!--            <td id="date-updated"></td>-->
-<!--        </tr>-->
-        </tbody>
-    </table>
+        <span id="listing-title"></span>
 
-<!--    <div id="chartContainer">-->
+        <table class="table" id="listing-info-table">
+            <thead id="listing-info-table-head">
+            <!--Will be propagated by fillData()-->
+            </thead>
+            <tbody id="listing-info-table-body">
+            <!--Will be propagated by fillData()-->
+            </tbody>
+        </table>
 
-<!--    </div>-->
-    <div id="chartContainer" style="height: 360px; width: 100%;"></div>
+        <div id="chartContainer" style="height: 100%; width: 100%;"></div>
+
+    </div>
+
 
 
 </div>
