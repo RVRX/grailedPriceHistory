@@ -315,6 +315,9 @@ function getShipping() {
 
 const shippingSection = "#section-shipping";
 const priceHistorySection = "#section-price-history";
+const sellerInfoSection = "#section-seller-info";
+
+const sectionList = ["#section-price-history","#section-shipping","#section-seller-info"];
 
 function openSection(openMe) {
     if (dataGrabSuccess) {
@@ -324,9 +327,10 @@ function openSection(openMe) {
 }
 
 function closeOtherSections(keepOpen) {
-    $("#section-price-history").toggle(false);
-    $("#section-shipping").toggle(false);
-    //... close all others
+    //close all sections
+    for (let i = 0; i < sectionList.length; i++) {
+        $(sectionList[i]).toggle(false);
+    }
 
     //open keepOpen
     $(keepOpen).toggle(true);

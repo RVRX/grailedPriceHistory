@@ -72,14 +72,14 @@
         </h6>
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#?price-history" onclick="openSection(priceHistorySection)">
+            <a class="nav-link active" aria-current="page" href="#?price-history" onclick="openSection(sectionList[0])">
 <!--              <span data-feather="bar-chart-2"></span>-->
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
               Price History
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#?shipping" onclick="openSection(shippingSection);">
+            <a class="nav-link" href="#?shipping" onclick="openSection(sectionList[1]);">
 <!--              <span data-feather="truck"></span>-->
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
               Shipping
@@ -151,9 +151,10 @@
     </nav>
 
     <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4" id="auto-content">
-      <h1 class="h3 pt-3 pb-5">Listing: <span id="listing-title"></span></h1>
 
-      <div id="section-price-history">
+        <h1 class="h3 pt-3 pb-5">Listing: <span id="listing-title"></span></h1>
+
+        <div id="section-price-history">
         <h2>Price History</h2>
         <div class="table-responsive">
           <table class="table table-striped table-sm" id="listing-info-table">
@@ -184,7 +185,7 @@
         <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
       </div>
 
-      <div id="section-shipping">
+        <div id="section-shipping">
         <h2>Shipping Costs</h2>
         <div class="table-responsive">
           <table class="table table-striped table-sm" id="shipping-table">
@@ -197,6 +198,10 @@
           </table>
         </div>
       </div>
+
+        <div id="section-seller-info">
+            <span id="seller-info-data"></span>
+        </div>
     </main>
   </div>
 </div>
