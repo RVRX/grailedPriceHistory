@@ -7,6 +7,11 @@ var form = document.getElementById("search-form");
 function handleForm(event) { event.preventDefault(); clearPreviousResult(); JSONFromInput(); }
 form.addEventListener('submit', handleForm);
 
+$("#auto-content").toggle(false);
+
+
+// var $yourUl = $("#auto-content");
+// $yourUl.css("display", $yourUl.css("display") === 'none' ? '' : 'none');
 // $("input").keypress(function(event) {
 //     if (event.which == 13) {
 //         event.preventDefault();
@@ -21,21 +26,23 @@ form.addEventListener('submit', handleForm);
 // });
 
 function clearPreviousResult() {
+    $("#auto-content").toggle(false);
+
     // if (document.getElementById("auto-content"))
-    document.getElementById("auto-content").innerHTML = "<span id=\"statuses\" class=\"justify-content-center\"></span>\n" +
-        "\n" +
-        "        <span id=\"listing-title\"></span>\n" +
-        "\n" +
-        "        <table class=\"table\" id=\"listing-info-table\">\n" +
-        "            <thead id=\"listing-info-table-head\">\n" +
-        "            <!--Will be propagated by fillData()-->\n" +
-        "            </thead>\n" +
-        "            <tbody id=\"listing-info-table-body\">\n" +
-        "            <!--Will be propagated by fillData()-->\n" +
-        "            </tbody>\n" +
-        "        </table>\n" +
-        "\n" +
-        "        <div id=\"chartContainer\" style=\"height: 100%; width: 100%;\"></div>";
+    // document.getElementById("auto-content").innerHTML = "<span id=\"statuses\" class=\"justify-content-center\"></span>\n" +
+    //     "\n" +
+    //     "        <span id=\"listing-title\"></span>\n" +
+    //     "\n" +
+    //     "        <table class=\"table\" id=\"listing-info-table\">\n" +
+    //     "            <thead id=\"listing-info-table-head\">\n" +
+    //     "            <!--Will be propagated by fillData()-->\n" +
+    //     "            </thead>\n" +
+    //     "            <tbody id=\"listing-info-table-body\">\n" +
+    //     "            <!--Will be propagated by fillData()-->\n" +
+    //     "            </tbody>\n" +
+    //     "        </table>\n" +
+    //     "\n" +
+    //     "        <div id=\"chartContainer\" style=\"height: 100%; width: 100%;\"></div>";
 }
 
 // Gets Grailed JSON from an ID or URL
@@ -105,18 +112,6 @@ function fetchJSON(listing) {
     setStatus("alert-secondary", "Fetching Data...")
     // listing = parseToID(listing);
     $.getJSON("https://cors-anywhere.herokuapp.com/https://www.grailed.com/api/listings/"+listing, fetchJSONCallback);
-    // var req = $.ajax({
-    //     url : "https://cors-anywhere.herokuapp.com/https://www.grailed.com/api/listings/"+listing,
-    //     dataType : "jsonp",
-    //     timeout : 10000
-    // });
-    //
-    // req.success(fetchJSONCallback());
-    //
-    // req.error(function() {
-    //     console.log('Fetch JSON failed!');
-    //     setStatus("alert-danger","Data Fetch Failed! error on:"+listing+". error code: JSONTimeoutA");
-    // });
 }
 
 //does the dirty work
@@ -162,6 +157,9 @@ function fillData() {
 
     // document.getElementById("price-history").innerHTML = returnedJSON["price_drops"];
 
+    //adding shipping
+    document.getElementById("shipping-cost").innerText = returnedJSON["shipping"]["us"]["amount"];
+
     initializeCharts(priceHistory);
 
    /*TODO
@@ -170,6 +168,8 @@ function fillData() {
    * "shipping:us:amount", show shipping amount by country
    * "price_updated_at", last time the price was updated
    * */
+    $("#auto-content").toggle(true);
+
 }
 
 function initializeCharts(inputDataPoints) {
@@ -215,7 +215,7 @@ function initializeCharts(inputDataPoints) {
 }
 
 function setStatus(type, text) {
-    document.getElementById("statuses").innerHTML = "<div id=\"status-box\" class=\"alert "+type+" mt-3 col-11\" role=\"alert\">\n" +
+    document.getElementById("statuses").innerHTML = "<div id=\"status-box\" class=\"alert "+type+" mt-3 col-6\" role=\"alert\">\n" +
         text +
         "</div>"
 }
