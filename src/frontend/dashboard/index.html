@@ -6,9 +6,9 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.75.1">
-    <title>Dashboard Template · Bootstrap</title>
+    <title>Grailed Scraper</title>
 
-    <link rel="canonical" href="https://v5.getbootstrap.com/docs/5.0/examples/dashboard/">
+<!--    <link rel="canonical" href="https://v5.getbootstrap.com/docs/5.0/examples/dashboard/">-->
 
     
 
@@ -48,7 +48,7 @@
 <!--    <div class="" id="searchBox-col">-->
       <label class="visually-hidden" for="search-query">Check History</label>
 <!--      <input type="text" class="form-control" id="search-query" placeholder="URL or listing ID" onsubmit="JSONFromInput()">-->
-      <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search" id="search-query" onsubmit="JSONFromInput()">
+      <input class="form-control form-control-dark w-100" type="text" placeholder="Grailed URL or listing ID [can accept deleted listings]" aria-label="Search" id="search-query" onsubmit="JSONFromInput()">
 <!--    </div>-->
   </form>
   <ul class="navbar-nav px-3">
@@ -66,25 +66,29 @@
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
           <span>Grailed API</span>
           <a class="link-secondary" href="#" aria-label="Add a new report">
-            <span data-feather="help-circle"></span>
+<!--            <span data-feather="help-circle"></span>-->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-help-circle"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
           </a>
         </h6>
         <ul class="nav flex-column">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#?price-history" onclick="openSection(priceHistorySection)">
-              <span data-feather="bar-chart-2"></span>
+<!--              <span data-feather="bar-chart-2"></span>-->
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
               Price History
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#?shipping" onclick="openSection(shippingSection);">
-              <span data-feather="truck"></span>
+<!--              <span data-feather="truck"></span>-->
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
               Shipping
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-muted"><!-- href="#"-->
-              <span data-feather="shopping-cart"></span>
+<!--              <span data-feather="shopping-cart"></span>-->
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
               Seller Information
             </a>
           </li>
@@ -111,19 +115,22 @@
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
           <span>Algolia API</span>
           <a class="link-secondary" href="#" aria-label="What is Algolia API">
-            <span data-feather="help-circle"></span>
+<!--            <span data-feather="help-circle"></span>-->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-help-circle"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
           </a>
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
             <a class="nav-link text-muted"><!-- href="#"-->
-              <span data-feather="database"></span>
+<!--              <span data-feather="database"></span>-->
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-database"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
               Detailed History
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-muted"><!-- href="#"-->
-              <span data-feather="search"></span>
+<!--              <span data-feather="search"></span>-->
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
               Search Listings
             </a>
           </li>
@@ -144,9 +151,22 @@
     </nav>
 
     <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4" id="auto-content">
-      <h1 class="h3 pt-3">Listing:<span id="listing-title"></span></h1>
+      <h1 class="h3 pt-3 pb-5">Listing: <span id="listing-title"></span></h1>
 
       <div id="section-price-history">
+        <h2>Price History</h2>
+        <div class="table-responsive">
+          <table class="table table-striped table-sm" id="listing-info-table">
+            <thead id="listing-info-table-head">
+            <!--Will be propagated by fillData()-->
+            </thead>
+            <tbody id="listing-info-table-body">
+            <!--Will be propagated by fillData()-->
+            </tbody>
+          </table>
+        </div>
+
+
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Price History Over Time</h1>
                   <div class="btn-toolbar mb-2 mb-md-0">
@@ -162,18 +182,6 @@
         </div>
 
         <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-
-        <h2>Price History</h2>
-        <div class="table-responsive">
-          <table class="table table-striped table-sm" id="listing-info-table">
-            <thead id="listing-info-table-head">
-            <!--Will be propagated by fillData()-->
-            </thead>
-            <tbody id="listing-info-table-body">
-            <!--Will be propagated by fillData()-->
-            </tbody>
-          </table>
-        </div>
       </div>
 
       <div id="section-shipping">
