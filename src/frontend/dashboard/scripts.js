@@ -310,19 +310,27 @@ function propagateChart(inputDataPoints) {
 }
 // propagateChart();
 
-function getShipping() {
-    if (dataGrabSuccess) {
-        console.log("getShipping() ACCEPTED");
-        // $("#section-shipping").toggle(true);
-        closeOtherSections("#section-shipping")
-        return null;
-    }
-    console.log("getShipping() DENIED");
-
-}
+// function getShipping() {
+//     if (dataGrabSuccess) {
+//         console.log("getShipping() ACCEPTED");
+//         // $("#section-shipping").toggle(true);
+//         closeOtherSections("#section-shipping")
+//         return null;
+//     }
+//     console.log("getShipping() DENIED");
+//
+// }
 
 
 const sectionList = ["#section-price-history","#section-shipping","#section-seller-info"];
+// const sectionListNoPound = sectionList.map(s => s.slice(1));
+const linkIDs = ["price-history-link","shipping-link","seller-info-link"];
+const sectionListAndLinkID = [["#section-price-history","price-history-link"],["#section-shipping","shipping-link"],["#section-seller-info","seller-info-link"]];
+// (function(){
+//     for (let i = 0; i < sectionList.length; i++) {
+//         sectionListNoPound.push(sectionList[i].)
+//     }
+// })();
 
 function openSection(openMe) {
     if (dataGrabSuccess) {
@@ -332,13 +340,15 @@ function openSection(openMe) {
 }
 
 function closeOtherSections(keepOpen) {
-    //close all sections
+    //close all sections & remove active status
     for (let i = 0; i < sectionList.length; i++) {
-        $(sectionList[i]).toggle(false);
+        $(sectionListAndLinkID[i][0]).toggle(false);
+        document.getElementById(sectionListAndLinkID[i][1]).classList.remove("active");
     }
 
     //open keepOpen
-    $(keepOpen).toggle(true);
+    $(keepOpen[0]).toggle(true);
+    document.getElementById(keepOpen[1]).classList.add("active");
 
 }
 
@@ -348,7 +358,7 @@ function closeOtherSections(keepOpen) {
 
 //set the default section view
 (function(){
-    closeOtherSections(sectionList[0]);
+    closeOtherSections(sectionListAndLinkID[0]);
 
 })();
 
