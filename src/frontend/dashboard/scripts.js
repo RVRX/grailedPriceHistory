@@ -182,6 +182,9 @@ function fillData() {
     //shipping table
     fillShippingInfo();
 
+    //seller info
+    fillSellerInfo();
+
    /*TODO
    * Created at, show users when this listing was first posted
    * "fee", what is this??
@@ -209,6 +212,11 @@ function fillShippingInfo() {
     for (let i = 0; i < 7; i++) {
         document.getElementById("shipping-table-body").innerHTML = document.getElementById("shipping-table-body").innerHTML + "<tr><td>" + location[i] + "</td><td>$ " + shippingInfo[location[i]]['amount'] + "</td><td>" + shippingInfo[location[i]]['enabled'] + "</td></tr>";
     }
+}
+
+function fillSellerInfo() {
+    let sellerInfo = returnedJSON["seller"];
+    document.getElementById("section-seller-info").innerHTML = "SAMPLE SELLER INFO";
 }
 
 function initializeCharts(inputDataPoints) {
@@ -313,9 +321,6 @@ function getShipping() {
 
 }
 
-const shippingSection = "#section-shipping";
-const priceHistorySection = "#section-price-history";
-const sellerInfoSection = "#section-seller-info";
 
 const sectionList = ["#section-price-history","#section-shipping","#section-seller-info"];
 
@@ -337,8 +342,14 @@ function closeOtherSections(keepOpen) {
 
 }
 
-function defaultSectionView() {
-    closeOtherSections(priceHistorySection);
-}
+// function defaultSectionView() {
+//     closeOtherSections(sectionList[0]);
+// }
 
-defaultSectionView();
+//set the default section view
+(function(){
+    closeOtherSections(sectionList[0]);
+
+})();
+
+// defaultSectionView();
