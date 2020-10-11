@@ -41,7 +41,8 @@
     </form>
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="https://github.com/RVRX/grailedpricehistory" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                View Source</a>
         </li>
     </ul>
 </header>
@@ -53,7 +54,7 @@
                 <span id="statuses" class="justify-content-center"></span>
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>Grailed API</span>
-                    <a class="link-secondary" href="#" aria-label="Add a new report">
+                    <a class="link-secondary" href="#" aria-label="Grailed API" data-toggle="tooltip" data-placement="top" title="Grailed's In-House API: grailed.com/listings/api/">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-help-circle"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                     </a>
                 </h6>
@@ -71,16 +72,22 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-muted" onclick="openSection(sectionListAndLinkID[2]);" id="seller-info-link"><!-- href="#"-->
+                        <a class="nav-link" onclick="openSection(sectionListAndLinkID[2]);" id="seller-info-link" href="#?seller-info">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                             Seller Information
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="openSection(sectionListAndLinkID[3]);" id="raw-json-link" href="#?json"><!-- href="#"-->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            Raw JSON
                         </a>
                     </li>
                 </ul>
 
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>Algolia API</span>
-                    <a class="link-secondary" href="#" aria-label="What is Algolia API">
+                    <a class="link-secondary" href="#" aria-label="What is Algolia API" data-toggle="tooltip" data-placement="top" title="Grailed's Search API Handler. Allows for getting details for many different listings all at once.">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-help-circle"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                     </a>
                 </h6>
@@ -151,7 +158,61 @@
             </div>
 
             <div id="section-seller-info">
+                <h2>Seller Information</h2>
                 <span id="seller-info-data"></span>
+
+                <div class="row">
+                    <div class="col col-auto">
+                        <div class="card border-secondary" style="width: 18rem;">
+                            <div class="card-header">
+                                Seller's "Seller Score"
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item" id="seller-score-sold_count"></li>
+                                <li class="list-group-item" id="seller-score-rating_average"></li>
+                                <li class="list-group-item" id="seller-score-rating_count"></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col col-auto">
+                        <div class="card border-secondary" style="width: 18rem;">
+                            <div class="card-header">
+                                Seller's "Buyer Score"
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item" id="buyer-score-purchase_count"></li>
+                                <li class="list-group-item" id="buyer-score-would_sell_to_again"></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col col-auto">
+                        <div class="card border-secondary" style="width: 18rem;">
+                            <div class="card-header">
+                                Seller's Meta-Data
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item" id="seller-username"></li>
+                                <li class="list-group-item" id="seller-created_at"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--/*TODO
+                        * username
+                        * admin bool
+                        * sold_count
+                        * created_at
+                        * purchase_count
+                        * view more on grailed
+                        * <mark> content that cannot be found on grailed.
+                * */-->
+            </div>
+
+            <div id="section-raw-json">
+                <h2>Raw JSON Data</h2>
+                <pre id="raw-json-here" class="bg-light"></pre>
             </div>
         </main>
     </div>

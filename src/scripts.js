@@ -7,9 +7,12 @@ let dataGrabSuccess = false;
 //definition for JSON functions to use, defined in outer-scope so that it can be access from any function.
 let returnedJSON = null;
 
+//auto-focus on the form
+document.getElementById("search-query").focus();
+
 //Variables for Section switching. Must be updated for every new section added to the interface, along with a function called in fillData()
     //Format [[#ID_NAME_OF_SECTION],[NAV-LINK-ID]]
-const sectionListAndLinkID = [["#section-price-history","price-history-link"],["#section-shipping","shipping-link"],["#section-seller-info","seller-info-link"]];
+const sectionListAndLinkID = [["#section-price-history","price-history-link"],["#section-shipping","shipping-link"],["#section-seller-info","seller-info-link"],["#section-raw-json","raw-json-link"]];
 
 //Stop the form submission from refreshing the page / redirecting, eats the request and calls functions for JSON requests instead.
 (function() {
@@ -156,6 +159,9 @@ function fillData() {
     //seller info
     fillSellerInfo();
 
+    //Raw Json section
+    document.getElementById("raw-json-here").innerHTML = JSON.stringify(returnedJSON,undefined,2);
+
     $("#auto-content").toggle(true);
 
 }
@@ -179,12 +185,22 @@ function fillShippingInfo() {
     }
 }
 
-/*Puts seller info on seller info section
-* TODO
-*   - finish page fill / format JSON*/
+// Puts seller info on seller info section
 function fillSellerInfo() {
     let sellerInfo = returnedJSON["seller"];
-    document.getElementById("section-seller-info").innerHTML = JSON.stringify(sellerInfo);
+    document.getElementById("seller-score-sold_count").innerHTML = "<span class=\"font-italic\">Sold Count: </span><mark>" + sellerInfo["seller_score"]["sold_count"] + "</mark>";
+    document.getElementById("seller-score-rating_average").innerHTML = "<span class='font-italic'>Avg. Rating: </span>" + sellerInfo["seller_score"]["rating_average"];
+    document.getElementById("seller-score-rating_count").innerHTML = "<span class='font-italic'>Num. Ratings: </span>" + sellerInfo["seller_score"]["rating_count"];
+
+    document.getElementById("buyer-score-purchase_count").innerHTML = "<span class='font-italic'>Num. Purchases: </span><mark>" + sellerInfo["buyer_score"]["purchase_count"] + "</mark>";
+    document.getElementById("buyer-score-would_sell_to_again").innerHTML = "<span class='font-italic'>\"Would Sell to Again\" Count: </span><mark>" + sellerInfo["buyer_score"]["would_sell_to_again_count"] + "</mark>";
+
+    //Get date and format
+    let dateUpdated = new Date(sellerInfo["created_at"]);
+    console.log("Date Updated:\n",dateUpdated);
+    let [month, date, year] = (dateUpdated).toLocaleDateString().split("/")
+    document.getElementById("seller-created_at").innerHTML = "<span class='font-italic'>Account Creation Date: </span><mark>" + month + "/" + date + "/" + year + "</mark>";
+    document.getElementById("seller-username").innerHTML = "<span class='font-italic'>Username: </span>" + sellerInfo["username"];
 }
 
 /* Sets a status box on the page, new statuses override old. Statuses do not disappear.
