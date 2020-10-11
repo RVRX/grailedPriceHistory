@@ -1,64 +1,37 @@
-//todo the python script could be used here to grab search queries.
-//prevent form submission (https://stackoverflow.com/questions/19454310/stop-form-refreshing-page-on-submit)
-// $("#search-form").submit(function(e) {
-//     e.preventDefault();
-// });
+//hide content (headers) on load.
+$("#auto-content").toggle(false);
+
+//variable that decides whether you can change section tabs or not.
 let dataGrabSuccess = false;
 
+//definition for JSON functions to use, defined in outer-scope so that it can be access from any function.
+let returnedJSON = null;
 
-var form = document.getElementById("search-form");
-console.log(form);
-function handleForm(event) { event.preventDefault(); clearPreviousResult(); JSONFromInput(); }
-form.addEventListener('submit', handleForm);
+//Variables for Section switching. Must be updated for every new section added to the interface, along with a function called in fillData()
+    //Format [[#ID_NAME_OF_SECTION],[NAV-LINK-ID]]
+const sectionListAndLinkID = [["#section-price-history","price-history-link"],["#section-shipping","shipping-link"],["#section-seller-info","seller-info-link"]];
 
-$("#auto-content").toggle(false);
-// $("#section-shipping").toggle(false);
-// defaultSectionView();
-
+//Stop the form submission from refreshing the page / redirecting, eats the request and calls functions for JSON requests instead.
+(function() {
+    var form = document.getElementById("search-form");
+    console.log(form);
+    function handleForm(event) { event.preventDefault(); clearPreviousResult(); JSONFromInput(); }
+    form.addEventListener('submit', handleForm);
+})();
 
 //start tooltips
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl)
-})
+(function() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
 
+})();
 
-
-
-// var $yourUl = $("#auto-content");
-// $yourUl.css("display", $yourUl.css("display") === 'none' ? '' : 'none');
-// $("input").keypress(function(event) {
-//     if (event.which == 13) {
-//         event.preventDefault();
-//         $("form").submit();
-//     }
-// });
-
-// $('#search-form input').keydown(function(e) {
-//     if (e.keyCode == 13) {
-//         $('#search-form').submit();
-//     }
-// });
-
+//does as it says, clears the last result, doesnt let you change section, until new result is found.
 function clearPreviousResult() {
     $("#auto-content").toggle(false);
     dataGrabSuccess = false;
-
-    // if (document.getElementById("auto-content"))
-    // document.getElementById("auto-content").innerHTML = "<span id=\"statuses\" class=\"justify-content-center\"></span>\n" +
-    //     "\n" +
-    //     "        <span id=\"listing-title\"></span>\n" +
-    //     "\n" +
-    //     "        <table class=\"table\" id=\"listing-info-table\">\n" +
-    //     "            <thead id=\"listing-info-table-head\">\n" +
-    //     "            <!--Will be propagated by fillData()-->\n" +
-    //     "            </thead>\n" +
-    //     "            <tbody id=\"listing-info-table-body\">\n" +
-    //     "            <!--Will be propagated by fillData()-->\n" +
-    //     "            </tbody>\n" +
-    //     "        </table>\n" +
-    //     "\n" +
-    //     "        <div id=\"chartContainer\" style=\"height: 100%; width: 100%;\"></div>";
 }
 
 // Gets Grailed JSON from an ID or URL
@@ -123,10 +96,13 @@ function isValidURL(url) {
     return url.includes("grailed.com/listing");
 }
 
-let returnedJSON = null;
+//makes the request for the JSON, and callbacks fetchJSONCallback on completion.
+/*TODO
+*  parse 404 and timed-out requests into a status
+*   maybe do this with by looking at JSON content for 404,
+*   or if returnedJSON is still null after x seconds set the error status*/
 function fetchJSON(listing) {
     setStatus("alert-secondary", "Fetching Data...")
-    // listing = parseToID(listing);
     $.getJSON("https://cors-anywhere.herokuapp.com/https://www.grailed.com/api/listings/"+listing, fetchJSONCallback);
 }
 
@@ -143,9 +119,8 @@ function fetchJSONCallback(data) {
     fillData();
 }
 
+//fills the page with content parsed from JSON, each section has a helper function.
 function fillData() {
-    //Animate incoming content
-    // document.getElementById("auto-content").classList.add("aos-init");
 
     //Data for
     document.getElementById("listing-title").innerHTML = returnedJSON["title"];
@@ -161,7 +136,7 @@ function fillData() {
     document.getElementById("listing-info-table-body").innerHTML = "";
         //Create table headers
     document.getElementById("listing-info-table-head").innerHTML = "<tr>\n" +
-        "            <th scope=\"col\">Price</th>\n" +
+        "            <th scope=\"col\">Price (USD)</th>\n" +
         "            <th scope=\"col\">Date</th>\n" +
         "        </tr>"
         //For each priceHistory item add a row
@@ -169,12 +144,8 @@ function fillData() {
         document.getElementById("listing-info-table-body").innerHTML = document.getElementById("listing-info-table-body").innerHTML + "<tr><td>$" + priceHistory[i] + "</td><td>--</td></tr>";
     }
     //adding most current info
-    document.getElementById("listing-info-table-body").innerHTML = document.getElementById("listing-info-table-body").innerHTML + "<tr><td>" + returnedJSON['price'] + "</td><td>" + month+"/"+date+"/"+year + "</td></tr>";
+    document.getElementById("listing-info-table-body").innerHTML = document.getElementById("listing-info-table-body").innerHTML + "<tr><td>$" + returnedJSON['price'] + "</td><td>" + month+"/"+date+"/"+year + "</td></tr>";
 
-    // document.getElementById("price-history").innerHTML = returnedJSON["price_drops"];
-
-    //adding shipping
-    // document.getElementById("shipping-cost").innerText = returnedJSON["shipping"]["us"]["amount"];
 
     // initializeCharts(priceHistory);
     propagateChart(priceHistory);
@@ -185,12 +156,6 @@ function fillData() {
     //seller info
     fillSellerInfo();
 
-   /*TODO
-   * Created at, show users when this listing was first posted
-   * "fee", what is this??
-   * "shipping:us:amount", show shipping amount by country
-   * "price_updated_at", last time the price was updated
-   * */
     $("#auto-content").toggle(true);
 
 }
@@ -214,53 +179,18 @@ function fillShippingInfo() {
     }
 }
 
+/*Puts seller info on seller info section
+* TODO
+*   - finish page fill / format JSON*/
 function fillSellerInfo() {
     let sellerInfo = returnedJSON["seller"];
     document.getElementById("section-seller-info").innerHTML = JSON.stringify(sellerInfo);
 }
 
-function initializeCharts(inputDataPoints) {
-    console.log("inputDataPoints: ", inputDataPoints);
-    var x1 = []; //make 1-n, where n is array.length
-    for (let i = 0; i < inputDataPoints.length; i++) {
-        x1.push(i+1);
-        console.log("array is:",x1);
-    }
-    var y1 = inputDataPoints;
-    var dataPoints = [];
-
-    for (var i = 0; i < x1.length; i++) {
-        dataPoints.push({
-            x: x1[i],
-            y: y1[i]
-        });
-    }
-
-
-    console.log("Final Input for Graph is:",x1,y1);
-
-    var chart = new CanvasJS.Chart("chartContainer", {
-        title: {
-            // text: " Populating chart using array "
-        },
-        axisY: {
-            title: "Price ($)",
-        },
-        axisX: {
-            title: "",
-            interval: 1,
-            labelFontSize: 0,
-            tickThickness: 0,
-        },
-        data: [{
-            type: "line",
-            dataPoints: dataPoints
-        }]
-    });
-
-    chart.render();
-}
-
+/* Sets a status box on the page, new statuses override old. Statuses do not disappear.
+*   TODO
+*    add an 'x' button to statuses, or make they timeout on their own
+* */
 function setStatus(type, text) {
     document.getElementById("statuses").innerHTML = "<div id=\"status-box\" class=\"alert "+type+" mt-3\" role=\"alert\">\n" +
         text +
@@ -308,29 +238,6 @@ function propagateChart(inputDataPoints) {
         }
     })
 }
-// propagateChart();
-
-// function getShipping() {
-//     if (dataGrabSuccess) {
-//         console.log("getShipping() ACCEPTED");
-//         // $("#section-shipping").toggle(true);
-//         closeOtherSections("#section-shipping")
-//         return null;
-//     }
-//     console.log("getShipping() DENIED");
-//
-// }
-
-
-const sectionList = ["#section-price-history","#section-shipping","#section-seller-info"];
-// const sectionListNoPound = sectionList.map(s => s.slice(1));
-const linkIDs = ["price-history-link","shipping-link","seller-info-link"];
-const sectionListAndLinkID = [["#section-price-history","price-history-link"],["#section-shipping","shipping-link"],["#section-seller-info","seller-info-link"]];
-// (function(){
-//     for (let i = 0; i < sectionList.length; i++) {
-//         sectionListNoPound.push(sectionList[i].)
-//     }
-// })();
 
 function openSection(openMe) {
     if (dataGrabSuccess) {
@@ -341,7 +248,7 @@ function openSection(openMe) {
 
 function closeOtherSections(keepOpen) {
     //close all sections & remove active status
-    for (let i = 0; i < sectionList.length; i++) {
+    for (let i = 0; i < sectionListAndLinkID.length; i++) {
         $(sectionListAndLinkID[i][0]).toggle(false);
         document.getElementById(sectionListAndLinkID[i][1]).classList.remove("active");
     }
@@ -352,14 +259,8 @@ function closeOtherSections(keepOpen) {
 
 }
 
-// function defaultSectionView() {
-//     closeOtherSections(sectionList[0]);
-// }
-
 //set the default section view
 (function(){
     closeOtherSections(sectionListAndLinkID[0]);
 
 })();
-
-// defaultSectionView();
